@@ -110,6 +110,7 @@ class StochasticHillClimb:
         """
         self._clear()
         self.current_state = self.initial_state
+        self.best_objective = self._objective(current_state)
         for i in range(self.max_steps):
             self.cur_steps += 1
 
@@ -121,7 +122,7 @@ class StochasticHillClimb:
             if self._accept_neighbor(neighbor):
                 self.current_state = neighbor
 
-            if self._objective(self.current_state) > (self.best_objective or 0):
+            if self._objective(self.current_state) > (self.best_objective):
                 self.best_objective = self._objective(self.current_state)
                 self.best_state = deepcopy(self.current_state)
 
